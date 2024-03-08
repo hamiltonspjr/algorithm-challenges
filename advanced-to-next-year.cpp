@@ -17,7 +17,6 @@ int main() {
 
     cout << "Média: " << average << endl;
     if(average >= 7) {
-      cout << "Média: " << average << endl;
       cout << "Passou de ano!" << endl;
     } else {
       cout << "Reprovou de ano!" << endl;
