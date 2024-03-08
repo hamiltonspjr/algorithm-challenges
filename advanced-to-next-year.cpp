@@ -14,11 +14,12 @@ int main() {
     cout << "Digite a nota do quarto período:" << endl;
     cin >> fourthSemesterGrade;
     average = (firstSemesterGrade + secondSemesterGrade + thirdSemesterGrade + fourthSemesterGrade) / 4;
+
+    cout << "Média: " << average << endl;
     if(average >= 7) {
       cout << "Média: " << average << endl;
       cout << "Passou de ano!" << endl;
     } else {
-      cout << "Média: " << average << endl;
       cout << "Reprovou de ano!" << endl;
     }
 }
