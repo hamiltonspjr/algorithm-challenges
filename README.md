@@ -2,7 +2,7 @@
 
 Repository with solutions to various algorithm and data structure challenges. The programming language used was C++.
 
-## Contato
+## Contact
 
 Get in touch with me through Linkedin by clicking the button below:
 <br>
