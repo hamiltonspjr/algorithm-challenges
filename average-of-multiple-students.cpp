@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-struct Studentes
+struct Student
 {
   string name;
   int age;
@@ -9,14 +9,39 @@ struct Studentes
   double average;
 };
 
+struct Report {
+    int approvedStudents;
+    int studentsInRecovery;
+};
 
-int main() {
+Student generateStudent();
+void generateReport(Student students[], int currentStudentIndex);
+
+int main()
+{
   char toContinue;
-  Studentes studentesList[100];
+  Student studentesList[100];
   int currentStudentIndex = 0;
   
   do {
-    Studentes student;
+    Student student = generateStudent();
+   
+    studentesList[currentStudentIndex] = student;
+    currentStudentIndex++;  
+
+    cout << "Deseja cadastrar mais um aluno? (s/n)" << endl;
+  }while(cin>>toContinue && toContinue == 's');
+
+  for(int i = 0; i < currentStudentIndex; i ++) {
+    cout << studentesList[i].name << ", " << studentesList[i].age << " anos, media " << studentesList[i].average << endl;
+  }
+  generateReport(studentesList, currentStudentIndex);
+  return 0;
+}
+
+Student generateStudent() {
+
+   Student student;
     cout << "Digite o nome do aluno: " << endl;
     cin >> student.name;
     cout << "Digite a idade do aluno: " << endl;
@@ -32,14 +57,23 @@ int main() {
 
     student.average = (student.scores[0] + student.scores[1] + student.scores[2] + student.scores[3]) / 4;
 
-    studentesList[currentStudentIndex] = student;
-    currentStudentIndex++;  
+    return student;
+}
 
-    cout << "Deseja cadastrar mais um aluno? (s/n)" << endl;
-  }while(cin>>toContinue && toContinue == 's');
-
-  for(int i = 0; i < currentStudentIndex; i ++) {
-    cout << "O estudante " << studentesList[i].name << ", " << studentesList[i].age << " anos, media " << studentesList[i].average << endl;
+void generateReport(Student students[], int currentStudentIndex) {
+  Report reportStudents = {0,0};
+  for(int i = 0; i < currentStudentIndex; i++) {
+    if(students[i].average >= 7) {
+      reportStudents.approvedStudents++;
+    } else {
+      reportStudents.studentsInRecovery++;
+    }
   }
-  return 0;
+
+  cout << endl;
+  cout << "Relatorio:" << endl;
+  cout << endl;
+  cout << reportStudents.approvedStudents << " aluno(s) passaram de ano!" << endl;
+  cout << reportStudents.studentsInRecovery << " aluno(s) foi/foram para recuperacao!" << endl;
+  
 }
