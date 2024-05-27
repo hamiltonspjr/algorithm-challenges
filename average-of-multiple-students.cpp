@@ -7,15 +7,46 @@ struct Student
   int age;
   double scores[4];
   double average;
+  void generate() {
+    cout << "Digite o nome do aluno: " << endl;
+    cin >> name;
+    cout << "Digite a idade do aluno: " << endl;
+    cin >> age;
+    cout << "Digite a nota do primeiro periodo: " << endl;
+    cin >> scores[0];
+    cout << "Digite a nota do segundo periodo: " << endl;
+    cin >> scores[1];
+    cout << "Digite a nota do terceiro periodo: " << endl;
+    cin >> scores[2];
+    cout << "Digite a nota do quarto periodo: " << endl;
+    cin >> scores[3];
+
+    average = (scores[0] + scores[1] + scores[2] + scores[3]) / 4;
+  }
 };
 
 struct Report {
     int approvedStudents;
     int studentsInRecovery;
+    void print(Student students[], int currentStudentIndex) {
+      approvedStudents = 0;
+    studentsInRecovery = 0;
+  for(int i = 0; i < currentStudentIndex; i++) {
+    if(students[i].average >= 7) {
+      approvedStudents++;
+    } else {
+      studentsInRecovery++;
+    }
+  }
+
+  cout << endl;
+  cout << "Relatorio:" << endl;
+  cout << endl;
+  cout << approvedStudents << " aluno(s) passaram de ano!" << endl;
+  cout << studentsInRecovery << " aluno(s) foi/foram para recuperacao!" << endl;
+    }
 };
 
-Student generateStudent();
-void generateReport(Student students[], int currentStudentIndex);
 
 int main()
 {
@@ -24,7 +55,8 @@ int main()
   int currentStudentIndex = 0;
   
   do {
-    Student student = generateStudent();
+    Student student;
+    student.generate();
    
     studentesList[currentStudentIndex] = student;
     currentStudentIndex++;  
@@ -35,45 +67,8 @@ int main()
   for(int i = 0; i < currentStudentIndex; i ++) {
     cout << studentesList[i].name << ", " << studentesList[i].age << " anos, media " << studentesList[i].average << endl;
   }
-  generateReport(studentesList, currentStudentIndex);
+  Report report;
+  report.print(studentesList, currentStudentIndex);
   return 0;
 }
 
-Student generateStudent() {
-
-   Student student;
-    cout << "Digite o nome do aluno: " << endl;
-    cin >> student.name;
-    cout << "Digite a idade do aluno: " << endl;
-    cin >> student.age;
-    cout << "Digite a nota do primeiro periodo: " << endl;
-    cin >> student.scores[0];
-    cout << "Digite a nota do segundo periodo: " << endl;
-    cin >> student.scores[1];
-    cout << "Digite a nota do terceiro periodo: " << endl;
-    cin >> student.scores[2];
-    cout << "Digite a nota do quarto periodo: " << endl;
-    cin >> student.scores[3];
-
-    student.average = (student.scores[0] + student.scores[1] + student.scores[2] + student.scores[3]) / 4;
-
-    return student;
-}
-
-void generateReport(Student students[], int currentStudentIndex) {
-  Report reportStudents = {0,0};
-  for(int i = 0; i < currentStudentIndex; i++) {
-    if(students[i].average >= 7) {
-      reportStudents.approvedStudents++;
-    } else {
-      reportStudents.studentsInRecovery++;
-    }
-  }
-
-  cout << endl;
-  cout << "Relatorio:" << endl;
-  cout << endl;
-  cout << reportStudents.approvedStudents << " aluno(s) passaram de ano!" << endl;
-  cout << reportStudents.studentsInRecovery << " aluno(s) foi/foram para recuperacao!" << endl;
-  
-}
